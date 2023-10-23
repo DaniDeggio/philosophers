@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:59:39 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/10/23 19:28:59 by deggio           ###   ########.fr       */
+/*   Updated: 2023/10/23 19:57:22 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ void	init(int ac, char **av, t_data *data)
 	int	i;
 
 	i = 0;
-	data->t_die = ft_atoi(av[2]);
-	data->t_eat = ft_atoi(av[3]);
-	data->t_sleep = ft_atoi(av[4]);
+	data->t_die = ft_atoi(data, av[2]);
+	data->t_eat = ft_atoi(data, av[3]);
+	data->t_sleep = ft_atoi(data, av[4]);
 	if (ac == 6)
-		data->n_eat = ft_atoi(av[5]);
+		data->n_eat = ft_atoi(data, av[5]);
 	else
 		data->n_eat = -1;
+	data->start = get_current_time(data);
 	data->phi = (t_phi *)malloc(sizeof(t_phi) * data->n_phi);
 	while (i < data->n_phi)
 	{
@@ -51,7 +52,7 @@ int	main(int ac, char **av)
 	data = (t_data *)malloc(sizeof(t_data));
 	if (ac != 5 && ac != 6)
 		ft_exit(data, 2);
-	data->n_phi = ft_atoi(av[1]);
+	data->n_phi = ft_atoi(data, av[1]);
 	init(ac, av, data);
 	while (i++ < data->n_phi)
 		pthread_create(&data->phi[i].thread, NULL, (void *)routine, &data->phi[i]);
