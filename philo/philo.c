@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:59:39 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/10/23 04:43:38 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/23 19:28:59 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void *routine(t_phi *phi)
+void routine(t_phi *phi)
 {
-	
+	printf("Sono il thread %d\n", phi->id);
 }
 
 void	init(int ac, char **av, t_data *data)
@@ -35,29 +35,28 @@ void	init(int ac, char **av, t_data *data)
 		data->phi[i].id = i;
 		data->phi[i].n_eated = 0;
 		data->phi[i].nxt = (i + 1) % data->n_phi; //Questo è geniale non voglio cambiarlo
-		phtread_mutex_init(&data->phi[i].fork, NULL); //gestire errori
+		pthread_mutex_init(&data->phi[i].fork, NULL); //gestire errori
 		data->phi[i].data = data;
 		i++;
 	}
-	
 
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_data	*data;
-	int 	i;
+	int		i;
 
 	i = 0;
-	if (ac != 5 && ac != 6)
-		ft_exit(1);
 	data = (t_data *)malloc(sizeof(t_data));
+	if (ac != 5 && ac != 6)
+		ft_exit(data, 2);
 	data->n_phi = ft_atoi(av[1]);
 	init(ac, av, data);
 	while (i++ < data->n_phi)
-		pthread_create(&data->phi[i].thread, NULL, routine, &data->phi[i]);
+		pthread_create(&data->phi[i].thread, NULL, (void *)routine, &data->phi[i]);
 	while (i-- < 0)
 		pthread_join(data->phi[i].thread, NULL);
-	ft_exit(t_data *data, -1);
+	ft_exit(data, -1);
 	return (0);
 }
