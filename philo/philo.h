@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:59:35 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/10/28 18:44:38 by deggio           ###   ########.fr       */
+/*   Updated: 2023/10/28 19:24:55 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_phi
 	struct s_data			*data;
 	int						eating;
 	size_t					lst_meat;
+	pthread_t				supervisor;
 }				t_phi;
 
 typedef struct s_data
@@ -44,7 +45,6 @@ typedef struct s_data
 	int				dead;
 	size_t			start;
 	t_phi			*phi;
-	t_phi			supervisor;
 }				t_data;
 
 void*	routine(t_phi *phi);

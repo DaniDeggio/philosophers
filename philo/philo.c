@@ -6,56 +6,53 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:59:39 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/10/28 18:44:58 by deggio           ###   ########.fr       */
+/*   Updated: 2023/10/28 19:38:11 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-void* supervisor(t_phi *sv)
+void* supervisor(t_phi *phi)
 {
-	int	i;
-
-	while (sv->data->dead == 0)
+	while (phi->data->dead == 0)
 	{
-		i = 0;
-		while (i < sv->data->n_phi)
+		if (phi->data->n_eat != -1 && phi->n_eated >= phi->data->n_eat)
 		{
-			if (sv->data->n_eat != -1 && sv->data->phi[i].n_eated >= sv->data->n_eat)
-			{
-				sv->data->dead = -1;
-				return NULL;
-			}
-			if (get_current_time(sv->data) - sv->data->phi[i].lst_meat > sv->data->t_die)
-			{
-				print_msg(&sv->data->phi[i], "died\n");
-				sv->data->dead = 1;
-				return NULL;
-			}
-			i++;
+			phi->data->dead = -1;
+			return NULL;
+		}
+		if (get_current_time(phi->data) - phi->lst_meat > phi->data->t_die)
+		{
+			print_msg(phi, "died");
+			phi->data->dead = 1;
+			return NULL;
 		}
 	}
+	//printf("phi->data->dead = %i\n", phi->data->dead);
 	return NULL;
 }
 void* routine(t_phi *phi)
 {
+	pthread_create(&phi->supervisor, NULL, (void *)supervisor, phi);
+	pthread_detach(phi->supervisor);
 	while (phi->data->dead == 0)
 	{
 		pthread_mutex_lock(&phi->fork);
-		print_msg(phi, "has taken a fork\n");
+		print_msg(phi, "has taken a fork");
 		pthread_mutex_lock(&phi->data->phi[phi->nxt].fork);
-		print_msg(phi, "has taken a fork\n");
+		print_msg(phi, "has taken a fork");
 		phi->eating = 1;
 		phi->lst_meat = get_current_time(phi->data);
-		print_msg(phi, "is eating\n");
+		print_msg(phi, "is eating");
 		ft_usleep(phi->data, phi->data->t_eat);
 		pthread_mutex_unlock(&phi->fork);
 		pthread_mutex_unlock(&phi->data->phi[phi->nxt].fork);
 		phi->n_eated++;
 		phi->eating = 0;
-		print_msg(phi, "is sleeping\n");
+		print_msg(phi, "is sleeping");
 		ft_usleep(phi->data, phi->data->t_sleep);
-		print_msg(phi, "is thinking\n");
+		print_msg(phi, "is thinking");
 	}
+	pthread_join(phi->supervisor, NULL);
 	return NULL;
 }
 
@@ -71,9 +68,9 @@ void	init(int ac, char **av, t_data *data)
 		data->n_eat = ft_atoi(data, av[5]);
 	else
 		data->n_eat = -1;
+	data->dead = 0;
 	data->start = get_current_time(data);
 	data->phi = (t_phi *)malloc(sizeof(t_phi) * data->n_phi);
-	data->supervisor.data = data;
 	while (i < data->n_phi)
 	{
 		//printf("       Creo filosofo   i = %i  \n", i);
@@ -86,7 +83,6 @@ void	init(int ac, char **av, t_data *data)
 		data->phi[i].lst_meat = get_current_time(data);
 		i++;
 	}
-
 }
 
 int	main(int ac, char **av)
@@ -104,7 +100,6 @@ int	main(int ac, char **av)
 	//printf(" creazione trhead   \n");
 	while (i++ < data->n_phi)
 		pthread_create(&data->phi[i].thread, NULL, (void *)routine, &data->phi[i]);
-	pthread_create(&data->supervisor.thread, NULL, (void *)supervisor, &data->supervisor);
 	//printf("join   \n");
 	while (i-- < 0)
 		pthread_join(data->phi[i].thread, NULL);
