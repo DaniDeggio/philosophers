@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 17:08:46 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/10/28 18:46:27 by deggio           ###   ########.fr       */
+/*   Updated: 2023/10/28 19:42:52 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_exit(t_data *data, int n)
 	if (n != -1)
 		exit(1);
 }
+
 int	ft_atoi(t_data *data, char *str)
 {
 	size_t	i;

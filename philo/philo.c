@@ -6,31 +6,33 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:59:39 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/10/28 19:38:11 by deggio           ###   ########.fr       */
+/*   Updated: 2023/10/28 19:42:26 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-void* supervisor(t_phi *phi)
+
+void	*supervisor(t_phi *phi)
 {
 	while (phi->data->dead == 0)
 	{
 		if (phi->data->n_eat != -1 && phi->n_eated >= phi->data->n_eat)
 		{
 			phi->data->dead = -1;
-			return NULL;
+			return (NULL);
 		}
 		if (get_current_time(phi->data) - phi->lst_meat > phi->data->t_die)
 		{
 			print_msg(phi, "died");
 			phi->data->dead = 1;
-			return NULL;
+			return (NULL);
 		}
 	}
 	//printf("phi->data->dead = %i\n", phi->data->dead);
-	return NULL;
+	return (NULL);
 }
-void* routine(t_phi *phi)
+
+void	*routine(t_phi *phi)
 {
 	pthread_create(&phi->supervisor, NULL, (void *)supervisor, phi);
 	pthread_detach(phi->supervisor);
