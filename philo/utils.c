@@ -6,24 +6,23 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 17:08:46 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/10/23 19:55:29 by deggio           ###   ########.fr       */
+/*   Updated: 2023/10/28 18:46:27 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_exit(t_data *data,int n)
+void	ft_exit(t_data *data, int n)
 {
-	int i;
-
-	i = 0;
 	if (n == 1 || n == 2)
 		write(1, "Error\n", 7);
-	while (i++ < data->n_phi && n != 2)
+	while (data->n_phi > 0 && n != 2)
 	{
-		pthread_mutex_destroy(&data->phi[i].fork);
-		free(data->phi);
+		pthread_mutex_destroy(&data->phi[data->n_phi - 1].fork);
+		data->n_phi--;
 	}
+	if (n != 2)
+		free(data->phi);
 	if (n != 3)
 		free(data);
 	if (n != -1)
@@ -49,9 +48,9 @@ int	ft_atoi(t_data *data, char *str)
 		num = (num * 10) + (str[i] - '0');
 		i++;
 	}
-	if (num > 2147483647 || num < -2147483648 || str[i] != '\0')
+	if (num > 2147483647 || num < 0 || str[i] != '\0')
 		ft_exit(data, 2);
-	return (num * sng);
+	return ((int)(num * sng));
 }
 
 size_t	get_current_time(t_data *data)
@@ -60,7 +59,7 @@ size_t	get_current_time(t_data *data)
 
 	if (gettimeofday(&time, NULL) == -1)
 		ft_exit(data, 1);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
 int	ft_usleep(t_data *data, size_t ms)
@@ -69,7 +68,7 @@ int	ft_usleep(t_data *data, size_t ms)
 
 	current = get_current_time(data);
 	while ((get_current_time(data) - current) < ms)
-		usleep(500);
+		usleep(ms / 10);
 	return (0);
 }
 

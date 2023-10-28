@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:59:35 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/10/23 19:55:11 by deggio           ###   ########.fr       */
+/*   Updated: 2023/10/28 18:44:38 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,24 @@ typedef struct s_phi
 	int						nxt;
 	pthread_mutex_t			fork;
 	struct s_data			*data;
+	int						eating;
+	size_t					lst_meat;
 }				t_phi;
 
 typedef struct s_data
 {
-	int				n_eat;
-	int				t_die;
+	int				n_phi;
+	size_t			t_die;
 	int				t_eat;
 	int				t_sleep;
-	int				n_death;
-	int				n_phi;
+	int				n_eat;
+	int				dead;
 	size_t			start;
 	t_phi			*phi;
+	t_phi			supervisor;
 }				t_data;
 
-void	routine(t_phi *phi);
+void*	routine(t_phi *phi);
 void	init(int ac, char **av, t_data *data);
 
 //utils
