@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dde-giov <dde-giov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 17:08:46 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/10/28 19:42:52 by deggio           ###   ########.fr       */
+/*   Updated: 2023/10/29 19:59:10 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,15 @@ int	ft_usleep(t_data *data, size_t ms)
 {
 	size_t	current;
 
+	// printf("		ms = %zu\n", ms);
 	current = get_current_time(data);
+	// printf("		current = %zu\n", current);
 	while ((get_current_time(data) - current) < ms)
+	{
+		// printf("		(get_current_time(data) = %zu\n", (get_current_time(data)));
+		// printf("		(get_current_time(data) - current) = %zu\n", (get_current_time(data) - current));
 		usleep(ms / 10);
+	}
 	return (0);
 }
 

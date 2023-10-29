@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dde-giov <dde-giov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:59:35 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/10/28 19:24:55 by deggio           ###   ########.fr       */
+/*   Updated: 2023/10/29 20:04:27 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,10 @@ typedef struct s_data
 	int				dead;
 	size_t			start;
 	t_phi			*phi;
+	pthread_mutex_t	lock;
 }				t_data;
 
-void*	routine(t_phi *phi);
+void	*routine(t_phi *phi);
 void	init(int ac, char **av, t_data *data);
 
 //utils

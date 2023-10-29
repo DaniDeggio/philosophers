@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: deggio <deggio@student.42.fr>              +#+  +:+       +#+         #
+#    By: dde-giov <dde-giov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/12 19:14:49 by dde-giov          #+#    #+#              #
-#    Updated: 2023/10/23 19:58:15 by deggio           ###   ########.fr        #
+#    Updated: 2023/10/29 19:43:38 by dde-giov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC =  philo.c utils.c\
 
 OBJ = ${SRC:.c=.o}
 
-CC = gcc -Wall -Wextra -Werror -g
+CC = gcc -Wall -Wextra -Werror -g -pthread
 
 .c.o:
 	@${CC} -c $< -o ${<:.c=.o}      
