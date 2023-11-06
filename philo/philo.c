@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-giov <dde-giov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:59:39 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/10/29 20:43:36 by dde-giov         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:52:20 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*supervisor(t_phi *phi)
+void	*supervisor(void *philo)
 {
+	t_phi	*phi;
+
+	phi = (t_phi *)philo;
 	while (phi->data->dead == 0)
 	{
 		if (phi->data->n_eat != -1 && phi->n_eated >= phi->data->n_eat)
@@ -32,23 +35,26 @@ void	*supervisor(t_phi *phi)
 	return (NULL);
 }
 
-void	*routine(t_phi *phi)
+void	*routine(void *philo)
 {
+	t_phi	*phi;
+
+	phi = (t_phi *)philo;
 	if (phi->id % 2 != 0)
 		ft_usleep(phi->data, 10);
-	pthread_create(&phi->supervisor, NULL, (void *)supervisor, phi);
+	pthread_create(&phi->supervisor, NULL, &supervisor, phi);
 	pthread_detach(phi->supervisor);
-	while (phi->data->dead == 0)
+	while (phi->data->dead == 0)\																																									
 	{
 		pthread_mutex_lock(&phi->fork);
 		print_msg(phi, "has taken a fork");
 		pthread_mutex_lock(&phi->data->phi[phi->nxt].fork);
 		print_msg(phi, "has taken a fork");
-		pthread_mutex_lock(&phi->data->lock);
+		//pthread_mutex_lock(&phi->data->lock);
 		phi->eating = 1;
 		phi->lst_meat = get_current_time(phi->data);
 		print_msg(phi, "is eating");
-		pthread_mutex_unlock(&phi->data->lock);
+		//pthread_mutex_unlock(&phi->data->lock);
 		ft_usleep(phi->data, phi->data->t_eat);
 		// printf("Finito de magna\n");
 		pthread_mutex_unlock(&phi->fork);
@@ -85,7 +91,7 @@ void	init(int ac, char **av, t_data *data)
 	while (i < data->n_phi)
 	{
 		//printf("       Creo filosofo   i = %i  \n", i);
-		data->phi[i].id = i;
+		data->phi[i].id = i + 1;
 		data->phi[i].n_eated = 0;
 		data->phi[i].nxt = (i + 1) % data->n_phi; //Questo è geniale non voglio cambiarlo
 		pthread_mutex_init(&data->phi[i].fork, NULL); //gestire errori
@@ -110,7 +116,7 @@ int	main(int ac, char **av)
 	init(ac, av, data);
 	//printf(" creazione trhead   \n");
 	while (++i < data->n_phi)
-		pthread_create(&data->phi[i].thread, NULL, (void *)routine, &data->phi[i]);
+		pthread_create(&data->phi[i].thread, NULL, &routine, (void *)&data->phi[i]);
 	printf("join   \n");
 	i = -1;
 	while (++i < data->n_phi)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-giov <dde-giov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:59:35 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/10/29 20:04:27 by dde-giov         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:21:45 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_data
 	pthread_mutex_t	lock;
 }				t_data;
 
-void	*routine(t_phi *phi);
+void	*routine(void *philo);
 void	init(int ac, char **av, t_data *data);
 
 //utils
