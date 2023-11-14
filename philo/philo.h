@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:59:35 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/11/06 15:21:45 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/14 23:43:39 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@ typedef struct s_phi
 {
 	pthread_t				thread;
 	int						id;
+	int						next;
 	int						n_eated;
-	int						nxt;
-	pthread_mutex_t			fork;
-	struct s_data			*data;
 	int						eating;
 	size_t					lst_meat;
-	pthread_t				supervisor;
+	pthread_mutex_t			fork;
+	struct s_data			*data;
 }				t_phi;
 
 typedef struct s_data
@@ -42,14 +41,24 @@ typedef struct s_data
 	int				t_eat;
 	int				t_sleep;
 	int				n_eat;
-	int				dead;
 	size_t			start;
+	pthread_mutex_t	lock_death;
 	t_phi			*phi;
-	pthread_mutex_t	lock;
+	int				dead;
+	pthread_t		supervisor;
 }				t_data;
 
+//philo
+int		life(t_data *data);
+void	*supervisor(void *data);
+void	eat(t_phi *phi);
+void	sleep_think(t_phi *phi);
 void	*routine(void *philo);
-void	init(int ac, char **av, t_data *data);
+void	start(t_data *data);
+
+//init
+void	init_data(int ac, char **av, t_data *data);
+void	init_phi(t_data *data);
 
 //utils
 void	ft_exit(t_data *data, int n);

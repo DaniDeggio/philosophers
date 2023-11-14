@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dde-giov <dde-giov@student.42.fr>          +#+  +:+       +#+         #
+#    By: deggio <deggio@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/12 19:14:49 by dde-giov          #+#    #+#              #
-#    Updated: 2023/10/29 19:43:38 by dde-giov         ###   ########.fr        #
+#    Updated: 2023/11/14 23:34:50 by deggio           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRC =  philo.c utils.c\
+SRC =  philo.c init.c utils.c\
 
 OBJ = ${SRC:.c=.o}
 

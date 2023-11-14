@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dde-giov <dde-giov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 17:08:46 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/10/29 19:59:10 by dde-giov         ###   ########.fr       */
+/*   Updated: 2023/11/15 00:01:13 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ void	ft_exit(t_data *data, int n)
 {
 	if (n == 1 || n == 2)
 		write(1, "Error\n", 7);
-	while (data->n_phi > 0 && n != 2)
+	while (data->n_phi > 0 && n != 2 && n != 5)
 	{
 		pthread_mutex_destroy(&data->phi[data->n_phi - 1].fork);
 		data->n_phi--;
 	}
+	if (n != 2)
+		pthread_mutex_destroy(&data->lock_death);
 	if (n != 2)
 		free(data->phi);
 	if (n != 3)
@@ -67,19 +69,21 @@ int	ft_usleep(t_data *data, size_t ms)
 {
 	size_t	current;
 
-	// printf("		ms = %zu\n", ms);
+	printf("		ms = %zu\n", ms);
 	current = get_current_time(data);
 	// printf("		current = %zu\n", current);
 	while ((get_current_time(data) - current) < ms)
 	{
-		// printf("		(get_current_time(data) = %zu\n", (get_current_time(data)));
-		// printf("		(get_current_time(data) - current) = %zu\n", (get_current_time(data) - current));
+		printf("		(get_current_time(data) = %zu\n", (get_current_time(data)));
+		printf("		(get_current_time(data) - current) = %zu\n", (get_current_time(data) - current));
 		usleep(ms / 10);
+		
 	}
 	return (0);
 }
 
 void	print_msg(t_phi *phi, char *str)
 {
-	printf("%zu %d %s\n", get_current_time(phi->data) - phi->data->start, phi->id, str);
+	printf("%zu %d %s\n", get_current_time(phi->data) - phi->data->start,
+		phi->id, str);
 }
