@@ -69,13 +69,13 @@ int	ft_usleep(t_data *data, size_t ms)
 {
 	size_t	current;
 
-	printf("		ms = %zu\n", ms);
+	// printf("		ms = %zu\n", ms);
 	current = get_current_time(data);
 	// printf("		current = %zu\n", current);
 	while ((get_current_time(data) - current) < ms)
 	{
-		printf("		(get_current_time(data) = %zu\n", (get_current_time(data)));
-		printf("		(get_current_time(data) - current) = %zu\n", (get_current_time(data) - current));
+		// printf("		(get_current_time(data) = %zu\n", (get_current_time(data)));
+		// printf("		(get_current_time(data) - current) = %zu\n", (get_current_time(data) - current));
 		usleep(ms / 10);
 		
 	}
