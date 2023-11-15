@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 16:24:33 by deggio            #+#    #+#             */
-/*   Updated: 2023/11/14 23:51:15 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/15 06:19:22 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void	sleep_think(t_phi *phi)
 {
 	print_msg(phi, "is sleeping");
 	ft_usleep(phi->data, phi->data->t_sleep);
-	//usleep(phi->data->t_sleep / 10);
 	print_msg(phi, "is thinking");
 }
 
@@ -113,7 +112,7 @@ void *routine(void *philo)
 
 	phi = (t_phi *)philo;
 	if (phi->id % 2 == 0)
-		ft_usleep(phi->data, 1);
+		ft_usleep(phi->data, 10);
 	// if (phi->id % 2 != 0)
 	// 	usleep(10);
 	//while (phi->data->dead == 0)
