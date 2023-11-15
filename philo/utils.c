@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 17:08:46 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/11/15 06:29:51 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/15 06:44:29 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_usleep(t_data *data, size_t ms)
 
 	current = get_current_time(data);
 	while ((get_current_time(data) - current) < ms)
-		usleep(ms / 10);
+		usleep(500);
 	return (0);
 }
 
