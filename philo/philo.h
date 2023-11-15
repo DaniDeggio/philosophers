@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:59:35 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/11/14 23:43:39 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/15 06:34:18 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
-
 
 struct	s_data;
 
@@ -49,16 +48,22 @@ typedef struct s_data
 }				t_data;
 
 //philo
-int		life(t_data *data);
-void	*supervisor(void *data);
-void	eat(t_phi *phi);
-void	sleep_think(t_phi *phi);
-void	*routine(void *philo);
 void	start(t_data *data);
 
 //init
 void	init_data(int ac, char **av, t_data *data);
 void	init_phi(t_data *data);
+
+//supervisor
+int		check_eat(t_data *data);
+int		check_death(t_data *data);
+void	*supervisor(void *data);
+
+//routine
+int		life(t_data *data);
+void	eat(t_phi *phi);
+void	sleep_think(t_phi *phi);
+void	*routine(void *philo);
 
 //utils
 void	ft_exit(t_data *data, int n);

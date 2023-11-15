@@ -6,13 +6,14 @@
 #    By: deggio <deggio@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/12 19:14:49 by dde-giov          #+#    #+#              #
-#    Updated: 2023/11/14 23:34:50 by deggio           ###   ########.fr        #
+#    Updated: 2023/11/15 06:32:57 by deggio           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRC =  philo.c init.c utils.c\
+SRC =  philo.c init.c supervisor.c\
+		routine.c utils.c\
 
 OBJ = ${SRC:.c=.o}
 

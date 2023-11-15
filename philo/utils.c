@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 17:08:46 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/11/15 00:01:13 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/15 06:29:51 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,9 @@ int	ft_usleep(t_data *data, size_t ms)
 {
 	size_t	current;
 
-	// printf("		ms = %zu\n", ms);
 	current = get_current_time(data);
-	// printf("		current = %zu\n", current);
 	while ((get_current_time(data) - current) < ms)
-	{
-		// printf("		(get_current_time(data) = %zu\n", (get_current_time(data)));
-		// printf("		(get_current_time(data) - current) = %zu\n", (get_current_time(data) - current));
 		usleep(ms / 10);
-		
-	}
 	return (0);
 }
 
@@ -86,5 +79,5 @@ void	print_msg(t_phi *phi, char *str)
 {
 	if (life(phi->data))
 		printf("%zu %d %s\n", get_current_time(phi->data) - phi->data->start,
-		phi->id, str);
+			phi->id, str);
 }
