@@ -84,6 +84,7 @@ int	ft_usleep(t_data *data, size_t ms)
 
 void	print_msg(t_phi *phi, char *str)
 {
-	printf("%zu %d %s\n", get_current_time(phi->data) - phi->data->start,
+	if (life(phi->data))
+		printf("%zu %d %s\n", get_current_time(phi->data) - phi->data->start,
 		phi->id, str);
 }

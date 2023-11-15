@@ -57,10 +57,10 @@ int	check_death(t_data *data)
 	{
 		if (get_current_time(data) - data->phi[i].lst_meat > data->t_die && data->phi[i].eating == 0)
 		{
+			print_msg(&data->phi[i], "died");
 			pthread_mutex_lock(&data->lock_death);
 			data->dead = 1;
 			pthread_mutex_unlock(&data->lock_death);
-			print_msg(&data->phi[i], "died");
 			return (1);
 		}
 		i++;
@@ -128,12 +128,8 @@ void *routine(void *philo)
 		}
 		else
 		{
-			// printf("\n  prima eat DIO MERDA PORCO DIO %d  SOFSAO OFFOSFOFOOSAF O\n \n", phi->data->dead);
 			eat(phi);
-			// printf("\n  prima sleep DIO MERDA PORCO DIO %d  SOFSAO OFFOSFOFOOSAF O\n \n", phi->data->dead);
-			// print_msg(phi, "DIO CANE MANGIATO");
 			sleep_think(phi);
-			// printf("\n  dopo sleepDIO MERDA PORCO DIO %d  SOFSAO OFFOSFOFOOSAF O\n \n", phi->data->dead);
 		}
 	}
 	return (NULL);
