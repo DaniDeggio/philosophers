@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 16:24:33 by deggio            #+#    #+#             */
-/*   Updated: 2023/11/16 03:55:32 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/16 05:24:12 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	start(t_data *data)
 {
 	int	i;
+	int j;
 	int	status;
 
 	i = 0;
@@ -28,7 +29,11 @@ void	start(t_data *data)
 	{
 		waitpid(-1, &status, 0);
 		if (WSTOPSIG(status) == 3)
-			data->dead = 1;
+		{
+			j = -1;
+			while (++j < data->n_phi)
+				kill(data->pid[j], SIGKILL);
+		}
 		i++;
 	}
 	sem_close(data->forks);
@@ -39,6 +44,9 @@ int	main(int ac, char **av)
 	t_data	*data;
 
 	data = (t_data *)malloc(sizeof(t_data));
+	if (!data)
+		ft_exit(data, 1);
+	sem_unlink("forks");
 	if (ac != 5 && ac != 6)
 		ft_exit(data, 2);
 	data->n_phi = ft_atoi(data, av[1]);

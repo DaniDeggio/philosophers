@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 06:28:31 by deggio            #+#    #+#             */
-/*   Updated: 2023/11/16 04:46:29 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/16 05:15:59 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,14 @@ void	routine(t_data *data, int i)
 	pid = fork();
 	if (!pid)
 	{
-		data->phi.id = i;
+		data->phi.id = i + 1;
 		if (data->phi.id % 2 == 0)
 			ft_usleep(data, 10);
 		if (pthread_create(&data->phi.supervisor, NULL,
 				supervisor, (void *)&data->phi))
 			ft_exit(data, 3);
-		if (pthread_join(data->phi.supervisor, NULL))
-	 		ft_exit(data, 3);
-		//pthread_detach(data->phi.supervisor);
-		while (!data->dead)
+		pthread_detach(data->phi.supervisor);
+		while (!data->phi.dead)
 		{
 			eat(data->phi);
 			sleep_think(data->phi);

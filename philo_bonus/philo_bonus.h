@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:59:35 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/11/16 04:35:22 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/16 05:15:15 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_phi
 	int						id;
 	int						n_eated;
 	int						eating;
+	int						dead;
 	size_t					lst_meat;
 	pthread_t				supervisor;
 	struct s_data			*data;
@@ -44,7 +45,6 @@ typedef struct s_data
 	int				n_eat;
 	size_t			start;
 	t_phi			phi;
-	int				dead;
 	int				eated;
 	sem_t			*forks;
 	int				pid[200];

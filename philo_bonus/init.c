@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:31:18 by deggio            #+#    #+#             */
-/*   Updated: 2023/11/16 04:39:01 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/16 05:15:27 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	init_data(int ac, char **av, t_data *data)
 	if (ac == 6 && data->n_eat < 0)
 		ft_exit(data, 2);
 	data->start = get_current_time(data);
-	data->dead = 0;
 	data->forks = sem_open("forks", O_CREAT, 0644, data->n_phi);
 }
 
@@ -35,5 +34,6 @@ void	init_phi(t_data *data)
 	data->phi.id = 0;
 	data->phi.n_eated = 0;
 	data->phi.eating = 0;
+	data->phi.dead = 0;
 	data->phi.data = data;
 }

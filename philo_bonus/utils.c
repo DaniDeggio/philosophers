@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 17:08:46 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/11/16 04:29:57 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/16 05:24:55 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_usleep(t_data *data, size_t ms)
 
 void	print_msg(t_phi phi, char *str)
 {
-	if (phi.data->dead == 0)
+	if (!phi.dead)
 		printf("%zu %d %s\n", get_current_time(phi.data) - phi.data->start,
 			phi.id, str);
 }
