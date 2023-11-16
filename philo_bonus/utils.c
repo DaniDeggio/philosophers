@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 17:08:46 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/11/16 00:05:18 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/16 04:29:57 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,6 @@ void	ft_exit(t_data *data, int n)
 {
 	if (n == 1 || n == 2)
 		write(1, "Error\n", 7);
-	while (data->n_phi > 0 && n != 2 && n != 5)
-	{
-		pthread_mutex_destroy(&data->phi[data->n_phi - 1].fork);
-		data->n_phi--;
-	}
-	if (n != 2)
-		pthread_mutex_destroy(&data->lock_death);
-	if (n != 2)
-		free(data->phi);
 	if (n != 3)
 		free(data);
 	if (n != -1)
@@ -75,9 +66,9 @@ int	ft_usleep(t_data *data, size_t ms)
 	return (0);
 }
 
-void	print_msg(t_phi *phi, char *str)
+void	print_msg(t_phi phi, char *str)
 {
-	if (life(phi->data))
-		printf("%zu %d %s\n", get_current_time(phi->data) - phi->data->start,
-			phi->id, str);
+	if (phi.data->dead == 0)
+		printf("%zu %d %s\n", get_current_time(phi.data) - phi.data->start,
+			phi.id, str);
 }

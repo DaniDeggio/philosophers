@@ -6,64 +6,45 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 06:26:51 by deggio            #+#    #+#             */
-/*   Updated: 2023/11/16 00:05:18 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/16 04:45:42 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-int	check_eat(t_data *data)
+int	check_eat(t_phi phi)
 {
-	int	i;
-	int	n;
-
-	i = 0;
-	n = 0;
-	while (i < data->n_phi)
+	if (phi.data->n_eat != -1 && phi.n_eated >= phi.data->n_eat)
+		phi.data->eated++;
+	if (phi.data->eated == phi.data->n_phi)
 	{
-		if (data->n_eat != -1 && data->phi[i].n_eated >= data->n_eat)
-			n++;
-		i++;
-	}
-	if (n == data->n_phi)
-	{
-		pthread_mutex_lock(&data->lock_death);
-		data->dead = -1;
-		pthread_mutex_unlock(&data->lock_death);
+		phi.data->dead = -1;
 		return (1);
 	}
 	return (0);
 }
 
-int	check_death(t_data *data)
+int	check_death(t_phi phi)
 {
-	int	i;
-
-	i = 0;
-	while (i < data->n_phi)
+	if (get_current_time(phi.data) - phi.lst_meat > phi.data->t_die
+		&& phi.eating == 0)
 	{
-		if (get_current_time(data) - data->phi[i].lst_meat > data->t_die
-			&& data->phi[i].eating == 0)
-		{
-			print_msg(&data->phi[i], "died");
-			pthread_mutex_lock(&data->lock_death);
-			data->dead = 1;
-			pthread_mutex_unlock(&data->lock_death);
-			return (1);
-		}
-		i++;
+		print_msg(phi, "died");
+		phi.data->dead = 1;
+		return (1);
 	}
 	return (0);
 }
 
-void	*supervisor(void *dataa)
+void	*supervisor(void *philo)
 {
-	t_data	*data;
+	t_phi	*phi;
 
-	data = (t_data *)dataa;
+	phi = (t_phi *)philo;
+	phi->lst_meat = get_current_time(phi->data);
 	while (1)
 	{
-		if (check_death(data) == 1 || check_eat(data) == 1)
+		if (check_death(*phi) == 1 || check_eat(*phi) == 1)
 			break ;
 	}
 	return (NULL);

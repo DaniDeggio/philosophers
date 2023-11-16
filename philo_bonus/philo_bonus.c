@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 16:24:33 by deggio            #+#    #+#             */
-/*   Updated: 2023/11/16 02:19:32 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/16 03:55:32 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,23 @@
 void	start(t_data *data)
 {
 	int	i;
+	int	status;
 
 	i = 0;
 	while (i < data->n_phi)
 	{
-		routine(data, i)
+		routine(data, i);
 		i++;
 	}
 	i = 0;
 	while (i < data->n_phi)
 	{
-		pthread_join(data->phi[i].thread, NULL);
+		waitpid(-1, &status, 0);
+		if (WSTOPSIG(status) == 3)
+			data->dead = 1;
 		i++;
 	}
+	sem_close(data->forks);
 }
 
 int	main(int ac, char **av)
