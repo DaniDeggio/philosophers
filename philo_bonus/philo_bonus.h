@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:59:35 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/11/20 02:33:29 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/20 03:09:58 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ void	init_data(int ac, char **av, t_data *data);
 void	init_phi(t_data *data);
 
 //supervisor
-int		check_eat(t_phi phi);
-int		check_death(t_phi phi);
+int		check_eat(t_phi *phi);
+int		check_death(t_phi *phi);
 void	*supervisor(void *philo);
 
 //routine
-void	eat(t_phi phi);
-void	sleep_think(t_phi phi);
+void	eat(t_phi *phi);
+void	sleep_think(t_phi *phi);
 void	routine(t_data *data, int i);
 
 //utils
@@ -73,6 +73,6 @@ void	ft_exit(t_data *data, int n);
 int		ft_atoi(t_data *data, char *str);
 size_t	get_current_time(t_data *data);
 int		ft_usleep(t_data *data, size_t ms);
-void	print_msg(t_phi phi, char *str);
+void	print_msg(t_phi *phi, char *str);
 
 #endif

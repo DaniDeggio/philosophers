@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 16:24:33 by deggio            #+#    #+#             */
-/*   Updated: 2023/11/16 05:24:12 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/20 03:05:47 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	start(t_data *data)
 		i++;
 	}
 	sem_close(data->forks);
+	sem_close(data->lock);
 }
 
 int	main(int ac, char **av)
@@ -46,7 +47,6 @@ int	main(int ac, char **av)
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
 		ft_exit(data, 1);
-	sem_unlink("forks");
 	if (ac != 5 && ac != 6)
 		ft_exit(data, 2);
 	data->n_phi = ft_atoi(data, av[1]);

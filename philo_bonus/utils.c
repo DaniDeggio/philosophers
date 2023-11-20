@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 17:08:46 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/11/20 02:39:39 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/20 03:08:46 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	ft_exit(t_data *data, int n)
 	if (n == 1 || n == 2)
 		write(1, "Error\n", 7);
 	free(data);
-	if (n != -1)
-		sem_post(data->lock);
 	if (n != -1)
 		exit(1);
 }
@@ -67,13 +65,13 @@ int	ft_usleep(t_data *data, size_t ms)
 	return (0);
 }
 
-void	print_msg(t_phi phi, char *str)
+void	print_msg(t_phi *phi, char *str)
 {
-	if (!phi.dead)
+	if (!phi->dead)
 	{
-		sem_wait(phi.data->lock);
-		printf("%zu %d %s\n", get_current_time(phi.data) - phi.data->start,
-			phi.id, str);
-		sem_post(phi.data->lock);
+		sem_wait(phi->data->lock);
+		printf("%zu %d %s\n", get_current_time(phi->data) - phi->data->start,
+			phi->id, str);
+		sem_post(phi->data->lock);
 	}
 }
