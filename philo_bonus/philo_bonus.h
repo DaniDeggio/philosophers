@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:59:35 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/11/16 05:15:15 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/20 02:33:29 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_data
 	int				eated;
 	sem_t			*forks;
 	int				pid[200];
+	sem_t			*lock;
 }				t_data;
 
 //philo_bonus

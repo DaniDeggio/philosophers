@@ -6,7 +6,7 @@
 /*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 06:26:51 by deggio            #+#    #+#             */
-/*   Updated: 2023/11/16 05:25:41 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/20 02:40:28 by deggio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	check_eat(t_phi phi)
 		phi.data->eated++;
 	if (phi.data->eated == phi.data->n_phi)
 	{
+		sem_wait(phi.data->lock);
 		phi.dead = -1;
 		return (1);
 	}
@@ -30,6 +31,7 @@ int	check_death(t_phi phi)
 		&& phi.eating == 0)
 	{
 		print_msg(phi, "died");
+		sem_wait(phi.data->lock);
 		phi.dead = -1;
 		exit(3);
 	}
