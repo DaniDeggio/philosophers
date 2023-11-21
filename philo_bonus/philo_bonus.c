@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dde-giov <dde-giov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 16:24:33 by deggio            #+#    #+#             */
-/*   Updated: 2023/11/20 03:05:47 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/21 14:31:23 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	start(t_data *data)
 {
 	int	i;
-	int j;
+	int	j;
 	int	status;
 
 	i = 0;

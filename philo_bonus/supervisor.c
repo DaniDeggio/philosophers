@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   supervisor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dde-giov <dde-giov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 06:26:51 by deggio            #+#    #+#             */
-/*   Updated: 2023/11/20 03:13:47 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/21 14:30:58 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	*supervisor(void *philo)
 	while (1)
 	{
 		if (check_death(phi) == 1 || check_eat(phi) == 1)
-			exit(3); ;
+			exit(3);
 	}
 	return (NULL);
 }
