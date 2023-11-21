@@ -6,7 +6,7 @@
 /*   By: dde-giov <dde-giov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 16:24:33 by deggio            #+#    #+#             */
-/*   Updated: 2023/11/21 14:31:23 by dde-giov         ###   ########.fr       */
+/*   Updated: 2023/11/21 15:06:52 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	start(t_data *data)
 		}
 		i++;
 	}
-	sem_close(data->forks);
-	sem_close(data->lock);
 }
 
 int	main(int ac, char **av)

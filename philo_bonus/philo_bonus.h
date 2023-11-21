@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deggio <deggio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dde-giov <dde-giov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:59:35 by dde-giov          #+#    #+#             */
-/*   Updated: 2023/11/20 03:09:58 by deggio           ###   ########.fr       */
+/*   Updated: 2023/11/21 15:44:10 by dde-giov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_data
 	sem_t			*forks;
 	int				pid[200];
 	sem_t			*lock;
+	sem_t			*check;
 }				t_data;
 
 //philo_bonus
@@ -64,6 +65,7 @@ int		check_death(t_phi *phi);
 void	*supervisor(void *philo);
 
 //routine
+int		death(t_phi *phi);
 void	eat(t_phi *phi);
 void	sleep_think(t_phi *phi);
 void	routine(t_data *data, int i);
